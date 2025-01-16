@@ -12,17 +12,17 @@ Route::get('/', function () {
 // contact
 
 Route::get('/home', function () {
-    return view('home');
+    return view('home', ["title" => "home"]);
 });
 
 Route::get('/blog', function () {
-    return view('blog');
+    return view('blog', ["title" => "blog"]);
 });
 
 Route::get('/about', function () {
-    return view('about');
+    return view('about', ["title" => "about", "name" => "Haidir Aditya"]);
 });
 
 Route::get('/contact', function () {
-    return view('contact');
+    return view('contact', ["title" => "contact"]);
 });
