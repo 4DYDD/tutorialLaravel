@@ -16,6 +16,56 @@ class UserFactory extends Factory
      */
     protected static ?string $password;
 
+    protected $heroes = [
+        'Alucard',
+        'Akai',
+        'Argus',
+        'Aurora',
+        'Badang',
+        'Balmond',
+        'Benedetta',
+        'Bruno',
+        'Chou',
+        'Clint',
+        'Kaja',
+        'Martis',
+        'Jawhead',
+        'Leomord',
+        'Guinevere',
+        'Badang',
+        'X Borg',
+        'Terizla',
+        'Dyrroth',
+        'Gatotkaca',
+        'Lapu-lapu',
+        'Sun',
+        'Alpha',
+        'Freya',
+        'Chou',
+        'Roger',
+        'Hilda',
+        'Balmond',
+        'Bane',
+        'Zilong',
+        'Alucard',
+        'Aulus',
+        'Yin',
+        'Julian',
+        'Fredrinn',
+        'Arlott',
+        'Cici',
+        'Baxia',
+        'Belerick',
+        'Estes',
+        'Franco',
+        'Hylos',
+        'Khufra',
+        'Tigreal',
+        'Uranus',
+        'Atlas',
+        'Masha',
+    ];
+
     /**
      * Define the model's default state.
      *
@@ -23,6 +73,8 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        // 'name' => $this->faker->unique()->randomElement($this->heroes),
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
@@ -37,7 +89,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
