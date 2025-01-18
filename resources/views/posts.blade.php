@@ -8,8 +8,9 @@
                     {{ $post['title'] }}
                 </a>
             </h2>
-            <div class="text-base text-gray-500"><a href="#">{{ $post['author'] }}</a> | 17 Januari 2025</div>
-            <p class="my-4 font-light">
+            <div class="text-base text-gray-500"><a href="#">{{ $post['author'] }}</a> |
+                {{ $post->created_at->format('j F Y') }}</div>
+            <p class="my-4 font-light text-justify">
                 {{ Str::limit($post['body'], 150) }}
             </p>
             <a class="font-medium text-blue-500 hover:underline" href="/posts/{{ $post['slug'] }}">Read More &raquo;</a>
