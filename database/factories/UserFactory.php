@@ -11,9 +11,6 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
     protected static ?string $password;
 
     protected $heroes = [
@@ -66,14 +63,8 @@ class UserFactory extends Factory
         'Masha',
     ];
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
-        // 'name' => $this->faker->unique()->randomElement($this->heroes),
 
         return [
             'name' => fake()->name(),

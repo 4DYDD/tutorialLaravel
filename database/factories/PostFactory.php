@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -10,11 +12,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PostFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
 
     protected $keywords = [
         'viral',
@@ -55,7 +52,8 @@ class PostFactory extends Factory
 
         return [
             'title' => $title,
-            'author' => fake()->name(),
+            'author_id' => User::factory(),
+            'category_id' => Category::all()->random()->id,
             'slug' => Str::slug(fake()->sentence()),
             'body' => fake()->text(),
         ];
