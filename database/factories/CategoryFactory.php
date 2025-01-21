@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,8 +21,10 @@ class CategoryFactory extends Factory
 
     public function definition(): array
     {
+        $categoriesnya = $this->faker->unique()->randomElement($this->categories);
         return [
-            'name' => $this->faker->unique()->randomElement($this->categories),
+            'name' => $categoriesnya,
+            'slug' => Str::slug($categoriesnya)
         ];
     }
 }

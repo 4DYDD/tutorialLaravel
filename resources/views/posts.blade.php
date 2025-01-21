@@ -8,18 +8,22 @@
                     {{ $post->title }}
                 </a>
             </h2>
-            <div class="text-base text-gray-500">
+            <div>
                 By
-                <a class="hover:underline" href="/authors/{{ $post->author->id }}">{{ $post->author->name }}</a>
+                <a class="text-base text-gray-500 hover:underline"
+                    href="/authors/{{ $post->author->username }}">{{ $post->author->name }}</a>
                 in
-                <a class="hover:underline" href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
+                <a class="text-base text-gray-500 hover:underline"
+                    href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a>
                 |
-                {{ $post->created_at->format('j F Y') }}
+                {{ $post->created_at->format('j F Y') }} - <span
+                    class="text-gray-500">{{ $post->created_at->diffForHumans() }}</span>
             </div>
             <p class="my-4 font-light text-justify">
                 {{ Str::limit($post->body, 150) }}
             </p>
-            <a class="font-medium text-blue-500 hover:underline" href="/posts/{{ $post->slug }}">Read More &raquo;</a>
+            <a class="font-medium text-blue-500 hover:underline" href="/posts/{{ $post->slug }}">Read More
+                &raquo;</a>
         </article>
     @endforeach
 

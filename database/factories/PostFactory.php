@@ -53,7 +53,7 @@ class PostFactory extends Factory
         return [
             'title' => $title,
             'author_id' => User::factory(),
-            'category_id' => Category::all()->random()->id,
+            'category_id' => Category::factory(),
             'slug' => Str::slug(fake()->sentence()),
             'body' => fake()->text(),
         ];
