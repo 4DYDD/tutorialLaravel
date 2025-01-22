@@ -21,15 +21,21 @@ Route::get('/home', function () {
 });
 
 Route::get('/posts', function () {
-    return view('posts', ["title" => "Blog", "posts" => Post::all()]);
+    // $posts = Post::with(['author', 'category'])->latest()->get();
+
+    return view('posts', ["title" => "Blog", "posts" => Post::latest()->get()]);
 });
 
 Route::get('/authors/{user:username}', function (User $user) {
+    // $posts = $user->posts->load('category', 'author');
+
     return view('posts', ['title' => count($user->posts) . " Article by $user->name", 'posts' => $user->posts]);
 });
 
 Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('posts', ['title' => "Articles in : $category->name", 'posts' => $category->posts]);
+    // $posts = $category->posts->load('category', 'author');
+
+    return view('posts', ['title' => count($category->posts) . " Articles in : $category->name", 'posts' => $category->posts]);
 });
 
 Route::get('/posts/{post:slug}', function (Post $post) {
