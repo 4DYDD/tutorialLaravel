@@ -54,8 +54,8 @@ class PostFactory extends Factory
             'title' => $title,
             'author_id' => User::factory(),
             'category_id' => Category::factory(),
-            'slug' => Str::slug(fake()->sentence()),
-            'body' => fake()->text(),
+            'slug' => Str::slug($title),
+            'body' => fake()->text(500),
         ];
     }
 }

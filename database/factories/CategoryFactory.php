@@ -12,19 +12,25 @@ class CategoryFactory extends Factory
 {
 
     protected $categories = [
-        'Politik',
-        'Olahraga',
-        'Ekonomi',
-        'Teknologi',
-        'Sosial Budaya'
+        'Politik' => 'red',
+        'Olahraga' => 'blue',
+        'Ekonomi' => 'green',
+        'Teknologi' => 'purple',
+        'Sosial Budaya' => 'orange'
     ];
+
+    protected $color = [];
 
     public function definition(): array
     {
-        $categoriesnya = $this->faker->unique()->randomElement($this->categories);
+        $categoryName = $this->faker->unique()->randomElement(array_keys($this->categories));
+        $categoryColor = $this->categories[$categoryName];
+        // $categoriesnya = $this->faker->unique()->randomElement($this->categories);
+        // $color = $this->faker->unique()->randomElement($this->color);
         return [
-            'name' => $categoriesnya,
-            'slug' => Str::slug($categoriesnya)
+            'name' => $categoryName,
+            'slug' => Str::slug($categoryName),
+            'color' => $categoryColor,
         ];
     }
 }

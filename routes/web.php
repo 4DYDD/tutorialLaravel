@@ -39,7 +39,7 @@ Route::get('/categories/{category:slug}', function (Category $category) {
 });
 
 Route::get('/posts/{post:slug}', function (Post $post) {
-    return view('post', ['title' => 'Single Post', 'post' => $post]);
+    return view('post', ['title' => 'Postingan Terkait', 'post' => $post]);
 });
 
 
