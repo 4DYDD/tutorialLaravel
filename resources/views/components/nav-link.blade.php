@@ -1,7 +1,3 @@
-{{-- @php
-    $active = false;
-@endphp --}}
-
 @props(['active' => false])
 
 <a {{ $attributes }}

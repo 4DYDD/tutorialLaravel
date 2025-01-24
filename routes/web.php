@@ -21,21 +21,16 @@ Route::get('/home', function () {
 });
 
 Route::get('/posts', function () {
-    // $posts = Post::with(['author', 'category'])->latest()->get();
+    $title = 'Blog';
 
-    return view('posts', ["title" => "Blog", "posts" => Post::latest()->get()]);
-});
-
-Route::get('/authors/{user:username}', function (User $user) {
-    // $posts = $user->posts->load('category', 'author');
-
-    return view('posts', ['title' => count($user->posts) . " Article by $user->name", 'posts' => $user->posts]);
-});
-
-Route::get('/categories/{category:slug}', function (Category $category) {
-    // $posts = $category->posts->load('category', 'author');
-
-    return view('posts', ['title' => count($category->posts) . " Articles in : $category->name", 'posts' => $category->posts]);
+    return view('posts', [
+        "title" => $title,
+        "posts" => Post::filter(request(['search', 'category', 'author']))
+            ->latest()
+            ->paginate(10)
+            ->withQueryString(),
+        "kategorinya" => Category::all()
+    ]);
 });
 
 Route::get('/posts/{post:slug}', function (Post $post) {

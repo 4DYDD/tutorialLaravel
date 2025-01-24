@@ -35,6 +35,6 @@ class CategorySeeder extends Seeder
         //     'slug' => 'sosial-budaya'
         // ]);
 
-        Category::factory(3)->create();
+        Category::factory(5)->create();
     }
 }

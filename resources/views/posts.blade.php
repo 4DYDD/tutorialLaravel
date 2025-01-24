@@ -1,16 +1,45 @@
-<x-layout>
+<x-layout :kategorinya="$kategorinya">
     <x-slot:title>{{ $title }}</x-slot:title>
 
     <div class="max-w-screen-xl p-1 mx-auto md:p-4 lg:py-8 lg:px-0">
 
+
+        {{-- SEARCH BAR --}}
+        <x-search :posts="count($posts)" :result="request('search')"></x-search>
+        {{-- SEARCH BAR --}}
+
+
+        {{-- NUMBER OF ARTICLES --}}
+        @if (request('category') && count($posts) > 0 && !request('search'))
+            <div
+                class="relative h-0 px-3 text-center text-gray-400 -top-8 lg:-top-16 col-span-full max-w-7xl sm:px-6 lg:px-8">
+                {{ count($posts) }} Artikel
+                {{ request('page') ? 'di page ' . request('page') : '' }}
+                dengan kategori
+                {{ ucwords(str_replace('-', ' ', request('category'))) }}
+                {{ request('name') ? 'pada blog milik ' . request('name') : '' }}
+            </div>
+        @endif
+        {{-- NUMBER OF ARTICLES --}}
+
+
+        {{-- PAGINATION --}}
+        {{ $posts->links() }}
+        <br>
+        {{-- PAGINATION --}}
+
+
+        {{-- ARTICLES --}}
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            @foreach ($posts as $post)
+
+            @forelse ($posts as $post)
                 <article
                     class="flex flex-col items-center justify-center p-3 bg-white border border-gray-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex items-center justify-between w-full mb-5 text-gray-500">
 
                         {{-- category --}}
-                        <a href="/categories/{{ $post->category->slug }}">
+                        <a
+                            href="/posts?category={{ $post->category->slug }} {{ request('author') ? '&author=' . $post->author->username . '&name=' . $post->author->name : '' }}">
                             <span
                                 class="py-2 bg-{{ $post->category->color }}-200 text-{{ $post->category->color }}-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-{{ $post->category->color }}-200 dark:text-{{ $post->category->color }}-800">
                                 <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"
@@ -26,7 +55,7 @@
 
                         {{-- createt_at --}}
                         <span class="text-xs">
-                            {{ $post->created_at->format('j F Y') }}
+                            {{ Carbon\Carbon::parse($post->created_at)->locale('id')->translatedFormat('j F Y') }}
                             |
                             {{ $post->created_at->diffForHumans() }}
                         </span>
@@ -53,7 +82,8 @@
                     <div class="flex items-center justify-between w-full h-10 px-1">
 
                         {{-- author --}}
-                        <a href="/authors/{{ $post->author->username }}" class="hover:underline">
+                        <a href="/posts?author={{ $post->author->username }}&name={{ $post->author->name }}"
+                            class="hover:underline">
                             <div class="flex items-center space-x-2">
                                 <img class="rounded-full size-6"
                                     src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
@@ -74,9 +104,26 @@
 
                     </div>
                 </article>
-            @endforeach
+            @empty
+                @if (request('category') && request('author') && !request('search'))
+                    <div
+                        class="relative px-3 text-center text-gray-400 -top-8 lg:-top-16 col-span-full max-w-7xl sm:px-6 lg:px-8">
+                        {{ request('name') }} tidak memiliki Artikel dengan kategori
+                        {{ ucwords(str_replace('-', ' ', request('category'))) }}
+                    </div>
+                @endif
+            @endforelse
 
         </div>
+        {{-- ARTICLES --}}
+
+
+        {{-- PAGINATION --}}
+        <br>
+        {{ $posts->links() }}
+        {{-- PAGINATION --}}
+
+
     </div>
 
 </x-layout>
